@@ -1,0 +1,54 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form-table {
+    background-color: lightblue;
+    border: 0;
+}
+
+.form-table-field-title {
+    height: 100%;
+    display: flex;
+    border: 0;
+    font-size: 28px;
+}
+
+.form-table-field-input {
+    border: 0;
+}
+
+.field-input {
+    width: 400px;
+    height: 30px;
+    font-size: 28px;
+}
+
+.form-table-field-select {
+    border: 0;
+}
+
+.form-table-field-date {
+    border: 0;
+}
+
+input[type="date"] { 
+    border: 0;
+    width:100%;
+    font-size: 28px;
+}
+
+button {
+    font-size: 28px;
+}
+
+select {
+    width: 100%;
+    font-size: 28px;
+}
+
+.choose-title {
+    text-align-last: center;
+}
+

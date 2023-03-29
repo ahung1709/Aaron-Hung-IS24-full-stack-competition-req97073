@@ -2,7 +2,6 @@ const productsData = require('../data/products')
 
 module.exports = {
     index, 
-    prepopulate, 
     addProduct, 
     updateProduct, 
 }
@@ -10,33 +9,26 @@ module.exports = {
 async function index(req, res) {
     console.log("inside index")  
     try {
-        console.log(productsData.allProducts)
-        res.json(productsData.allProducts)
+        // Pre-populate random data on initial execution
+        if (productsData.initial) {
+            productsData.allProducts = [...generateProducts(productsData.numInitialProducts)]
+            productsData.initial = false
+        }
+        res.status(200).json(productsData.allProducts)
     } catch(err) {
-        res.json(err)
-    }
-}
-
-function prepopulate(req, res) {
-    console.log("inside controller/prepopulate")
-    try {
-        productsData.allProducts = [...generateProducts(3)]
-        res.json(productsData.allProducts)
-    } catch {
-        res.json(err)
+        res.status(400).json(err)
     }
 }
 
 function addProduct(req, res) {
-    console.log(req)
     try {
         const id = generateUId()
-        const productName = req.body.productName
-        const productOwnerName = req.body.productOwnerName
-        const developers = req.body.Developers
-        const scrumMasterName = req.body.scrumMasterName
-        const startDate = req.body.startDate
-        const methodology = req.body.methodology
+        const productName = req.body.productName ? req.body.productName : ""
+        const productOwnerName = req.body.productOwnerName ? req.body.productOwnerName : ""
+        const developers = req.body.Developers ? req.body.Developers : []
+        const scrumMasterName = req.body.scrumMasterName ? req.body.scrumMasterName : ""
+        const startDate = req.body.startDate ? req.body.startDate : ""
+        const methodology = req.body.methodology ? req.body.methodology : ""
             
         const newProduct = createProduct(
             id, 
@@ -49,33 +41,33 @@ function addProduct(req, res) {
         )
     
         productsData.allProducts.push(newProduct)
-        res.json(productsData.allProducts)
+        res.status(200).json(productsData.allProducts)
     } catch {
-        res.json(err)
+        res.status(400).json(err)
     }
 }
 
 function updateProduct(req, res) {
     try {
-        let productFound = productsData.allProducts.find(p => p.productId === req.body.productId)
-        productFound.productName = req.body.productName
-        productFound.productOwnerName = req.body.productOwnerName
-        productFound.Developers = req.body.Developers
-        productFound.scrumMasterName = req.body.scrumMasterName
-        productFound.startDate = req.body.startDate
-        productFound.methodology = req.body.methodology
-        res.json(productFound)
+        let idxProductFound = productsData.allProducts.findIndex(p => p.productId === req.body.productId)
+        productsData.allProducts[idxProductFound].productName = req.body.productName
+        productsData.allProducts[idxProductFound].productOwnerName = req.body.productOwnerName
+        productsData.allProducts[idxProductFound].Developers = req.body.Developers
+        productsData.allProducts[idxProductFound].scrumMasterName = req.body.scrumMasterName
+        productsData.allProducts[idxProductFound].startDate = req.body.startDate
+        productsData.allProducts[idxProductFound].methodology = req.body.methodology
+        res.status(200).json(productsData.allProducts)
     } catch {
-        res.json(err)
+        res.status(400).json(err)
     }
        
 }
 
-//-- Helper function --
+//-- Helper functions --
 
 function generateProducts(num) {
     let products = []
-    let maxlength = 40
+    let maxlength = productsData.maxInitialProducts
     for (let i=0; i<Math.min(num, maxlength); i++) {
         const id = generateUId()
         const productName = generateProductName(productsData.productNames)

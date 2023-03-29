@@ -1,6 +1,12 @@
 
 const allProducts = []
 
+const initial = true
+
+const maxInitialProducts = 40
+
+const numInitialProducts = 3
+
 const productNames = [
     "Product01", 
     "Product02", 
@@ -84,5 +90,15 @@ const scrumMasterNames = [
 
 const methodologies = ["Agile", "Waterfall"]
 
-module.exports = { allProducts, productNames, productOwnerNames, developers, scrumMasterNames, methodologies }
+module.exports = { 
+    allProducts, 
+    productNames, 
+    productOwnerNames, 
+    developers, 
+    scrumMasterNames, 
+    methodologies, 
+    initial, 
+    maxInitialProducts, 
+    numInitialProducts
+}
 

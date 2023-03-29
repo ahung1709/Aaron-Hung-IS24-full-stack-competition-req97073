@@ -1,0 +1,27 @@
+.AllProductPage {
+    display: flex;
+    justify-content: center;
+}
+
+.product-list-container {
+    width: 80%;
+}
+
+.new-product-link-button {
+    font-size: 30px;
+}
+
+.new-product-link-container {
+    padding: 10px;
+    margin: 10px;
+    font-size: 30px;
+}
+
+.total-container {
+    font-size: 30px;
+    padding: 5px;
+}
+
+.table-container {
+    width: 100%;
+}

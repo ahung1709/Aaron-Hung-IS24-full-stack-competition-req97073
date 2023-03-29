@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { getAllProducts, prepopulateProducts} from '../../utilities/products-service';
+import { Routes, Route } from 'react-router-dom';
+import * as productServices from '../../utilities/products-service';
+
+import AllProductsPage from '../AllProductsPage/AllProductsPage';
+import NewProductPage from '../NewProductPage/NewProductPage';
+import EditProductPage from '../EditProductPage/EditProductPage';
 
 import './App.css';
 
@@ -8,24 +13,39 @@ function App() {
 
   const [products, setProducts] = useState([])
 
+  const getAllProducts = async () => {
+    const allProducts = await productServices.getAllProducts();
+    setProducts(allProducts);
+  };
+
   useEffect(() => {
-    async function fetchData() {     
-      console.log("prepopulateProducts(): ");
-      prepopulateProducts().then(res => {
-        setProducts(res)
-      })
-    }
-    fetchData()
+    getAllProducts()
   }, [])
+
+  async function handleAddProduct(productData) {
+    const updatedProducts = await productServices.addProduct(productData)
+    setProducts(updatedProducts)   
+    getAllProducts()
+  }
+
+  async function handleEditProduct(productData) {
+    const updatedProducts = await productServices.editProduct(productData.productId, productData)
+    setProducts(updatedProducts)
+    getAllProducts()
+  }
 
   console.log("products: ");
   console.log(products)
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>List of Products</h1>
-      </header>
+      <>
+        <Routes>
+          <Route path="/" element={<AllProductsPage products={products} />} />
+          <Route path="/product/new" element={<NewProductPage handleAddProduct={handleAddProduct} />} />
+          <Route path="/product/:productId" element={<EditProductPage handleEditProduct={handleEditProduct} products={products} />} />
+        </Routes>
+      </>
     </div>
   );
 }

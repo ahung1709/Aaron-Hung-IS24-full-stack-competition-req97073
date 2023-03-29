@@ -5,8 +5,13 @@ export async function getAllProducts() {
     return await productsAPI.getAllProducts()
 }
 
-export async function prepopulateProducts() {
-    console.log("inside service/prepopulateProducts")
-    return await productsAPI.prepopulateProducts()
+export async function addProduct(productData) {
+    console.log("inside service/addProducts")
+    return await productsAPI.addProducts(productData)
+}
+
+export async function editProduct(productId, productData) {
+    console.log("inside service/editProducts")
+    return await productsAPI.editProducts(productId, productData)
 }
 

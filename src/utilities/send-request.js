@@ -8,10 +8,10 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
       options.body = JSON.stringify(payload);
     }
   
-    console.log("options")
-    console.log(options)
-    console.log("before fetching")
-    console.log(url)
+    // console.log("options")
+    // console.log(options)
+    // console.log("before fetching")
+    // console.log(url)
 
     const res = await fetch(url, options);
     console.log("res: ")
