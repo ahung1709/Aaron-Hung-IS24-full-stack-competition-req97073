@@ -9,8 +9,11 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
     let { productId } = useParams();
     const navigate = useNavigate()
 
+    // In the case of adding new products, no details for existing product is provided
+    // Empty strings and array of empty strings will be set as values in form data.
     let productEdit = { productId: "", productName: "", productOwnerName: "", Developers: ["", "", "", "", ""], scrumMasterName: "", startDate: "", methodology: "" }
 
+    // In the case of editing existing products, details of the existing product to be edited will be set as values in form data.
     if (productId) {
         const productFound = products.find((product) => product.productId === productId); 
         productEdit = { 
@@ -24,14 +27,16 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
         }
     } 
 
+    // Set form data after form data were setup above
     const [formData, setFormData] = useState(productEdit);
 
-
+    // Handle change of input fields (other than developers, methodology, and start date) in the form
     function handleChange(evt) {
         const newFormData = { ...formData, [evt.target.name]: evt.target.value };
         setFormData(newFormData);
     }
 
+    // Handle change of input fields for developers in the form
     function handleChangeDevelopers(evt) {
         const newDevelopers = formData.Developers
         newDevelopers[evt.target.name.slice(-1)] = evt.target.value
@@ -39,28 +44,33 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
         setFormData(newFormData);
     }
 
+    // Handle change of options for methodology
     function handleSelect(evt) {
         const newFormData = { ...formData, [evt.target.name]: evt.target.value };
         setFormData(newFormData);
     }
 
+    // Handle start date selection
     function handleSelectDate(evt) {
         const formattedDate = evt.target.value.split("-").join("/")
         const newFormData = { ...formData, [evt.target.name]: formattedDate };
         setFormData(newFormData);
     }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    if (newOrEdit === "new") {
-      handleAddProduct(formData);
-      setFormData({ productId: "", productName: "", productOwnerName: "", Developers: [], scrumMasterName: "", startDate: "", methodology: "" });
-      navigate('/')
-    } else if ((newOrEdit === "edit")) {
-      handleEditProduct(formData);
-      navigate('/')
+    // Handle form submittion
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        // when the form for creating new product is submitted, add the new product, clear form data, and navigate to the root page.
+        if (newOrEdit === "new") {
+            handleAddProduct(formData);
+            setFormData({ productId: "", productName: "", productOwnerName: "", Developers: [], scrumMasterName: "", startDate: "", methodology: "" });
+            navigate('/')
+        // when the form for editing an existing product is submitted, update the new product, and navigate to the root page.
+        } else if ((newOrEdit === "edit")) {
+            handleEditProduct(formData);
+            navigate('/')
+        }
     }
-  }
 
   return (
     <>
@@ -262,7 +272,6 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                     </tbody>
                 </table>
-
             </form>
         </div>
     </>

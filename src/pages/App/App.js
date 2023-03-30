@@ -13,24 +13,30 @@ function App() {
 
   const [products, setProducts] = useState([])
 
+  // Get all existing products
   const getAllProducts = async () => {
     const allProducts = await productServices.getAllProducts();
-    setProducts(allProducts);
+    // Set products to the list of all products only if API is present or healthy
+    if (allProducts) setProducts(allProducts)
   };
 
   useEffect(() => {
     getAllProducts()
   }, [])
 
+  // Add a new product to existing products, and get updated list of existing products
   async function handleAddProduct(productData) {
     const updatedProducts = await productServices.addProduct(productData)
-    setProducts(updatedProducts)   
+    // Set products to the updated list of all products only if API is present or healthy
+    if (updatedProducts) setProducts(updatedProducts)
     getAllProducts()
   }
 
+  // Update an existing product with a specific product ID to the product with new details, and get updated list of existing products
   async function handleEditProduct(productData) {
     const updatedProducts = await productServices.editProduct(productData)
-    setProducts(updatedProducts)
+    // Set products to the updated list of all products only if API is present or healthy
+    if (updatedProducts) setProducts(updatedProducts)
     getAllProducts()
   }
 

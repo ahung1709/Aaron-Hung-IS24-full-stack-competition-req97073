@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Aaron Hung - IS-24 Full Stack Developer Code Challenge req97073
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## This project
 
-## Available Scripts
+* This project is my solution for the IS-24 Full Stack Developer Code Challenge req97073.
+* Please see below for technologies used, and instructions to install and run this project.
 
-In the project directory, you can run:
+## Technologies used
 
-### `npm start`
+* Web languages
+    * HTML
+    * CSS
+    * JavaScript
+* Front-end framework
+    * React.js
+* Back-end web application framework
+    * Express.js
+* Server environment
+    * Node.js
+* Node.js module
+    * dotenv
+    * react-router-dom
+    * swagger-jsdoc
+    * swagger-ui-express
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started - Instruction to install and run this project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Clone this project
 
-### `npm test`
+* In the terminal, navigate to a desire folder:
+* Run `git clone https://github.com/ahung1709/Aaron-Hung-IS24-full-stack-competition-req97073.git`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Navigate to the project directory
 
-### `npm run build`
+* Run `cd Aaron-Hung-IS24-full-stack-competition-req97073`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Install dependencies of this project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Run `npm i`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Create a build directory with a production build of this project
 
-### `npm run eject`
+* Run `npm run build`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Add environment variable to set fron-end server to run on PORT 3001 to avoid colliding with back end server which will run on PORT 3000 (This step is optional by entering `y` when you are asked a question after running `npm start` - see next step)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Open the code of project, and add .env file in the root directory.
+* Open the .env file, add `PORT=3001`, and save the file.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Run back-end server and front-end server in two separate terminals
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Keep the existing terminal, and open a new terminal and navigate to the project directory.
+* In one terminal, run `nodemon server`
+    * If nodemon is not install, run `npm i -g nodemon` before running `nodemon server` to install nodemon.
+* In another terminal, run `npm start`
+    * If no environment variable is added, enter `y` when you are asked "Would you like to run the app on another port instead?".
+* The app should run automatically in your browser.  If your app does not start automatically, open [http://localhost:3001](http://localhost:3001) to view it in your browser.
 
-## Learn More
+### View API Swagger Documentation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Open [http://localhost:3000/api/api-docs](http://localhost:3000/api/api-docs) to view it in your browser.
+    
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -1,3 +1,4 @@
+// Data for generating random projects
 
 const allProducts = []
 
