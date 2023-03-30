@@ -11,10 +11,10 @@ export default function ProductsTable({ products }) {
         <table className="ProductsTable">
             <thead>
                 <tr>
-                    <th>Product ID</th>
+                    <th>Product Number</th>
                     <th>Product Name</th>
                     <th>Product Owner</th>
-                    <th>Developers</th>
+                    <th>Developer Names</th>
                     <th>Scrum Master</th>
                     <th>Start Date</th>
                     <th>Methodology</th>

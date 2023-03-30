@@ -1,3 +1,4 @@
+const { request } = require('express')
 const productsData = require('../data/products')
 
 module.exports = {
@@ -11,7 +12,7 @@ async function index(req, res) {
     try {
         // Pre-populate random data on initial execution
         if (productsData.initial) {
-            productsData.allProducts = [...generateProducts(productsData.numInitialProducts)]
+            generateProducts(productsData.numInitialProducts)
             productsData.initial = false
         }
         res.status(200).json(productsData.allProducts)
@@ -66,7 +67,6 @@ function updateProduct(req, res) {
 //-- Helper functions --
 
 function generateProducts(num) {
-    let products = []
     let maxlength = productsData.maxInitialProducts
     for (let i=0; i<Math.min(num, maxlength); i++) {
         const id = generateUId()
@@ -86,26 +86,25 @@ function generateProducts(num) {
             startDate, 
             methodology
         )
-        console.log("loop"+i)
-        console.log(product)
         
-        products.push(product)
+        productsData.allProducts.push(product)
     }
-    console.log("products.length")
-    console.log(products.length)
-    return products
 }
 
 function generateUId() {
-    let pId
+    let pId = ""
     do {
-        pId = Date.now().toString(36) + Math.random().toString(36).substr(2);
-    } while (productsData.allProducts.includes(pId));
+        pId = "P"+(Math.random().toString(36).substr(2,5));
+    } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === pId), false)); // ensure automatic generated ID is unique
     return pId
 }
 
 function generateProductName(arrProductNames) {
-    return arrProductNames[getRandomInt(0, arrProductNames.length)]
+    let selectedProductName = ""
+    do {
+        selectedProductName = arrProductNames[getRandomInt(0, arrProductNames.length)]
+    } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === selectedProductName), false)); // ensure automatic generated product name is unique
+    return selectedProductName
 }
 
 function generateProductOwner(arrProductOwner) {

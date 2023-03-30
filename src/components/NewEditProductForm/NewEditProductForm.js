@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -69,7 +70,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                     <tbody>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                { newOrEdit === "new" ? "" : <label>Product ID</label>}
+                                { newOrEdit === "new" ? "" : <label>Product Number</label>}
                             </th>
                             <td className="form-table-field-input">
                                 { 
@@ -98,7 +99,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Product Owner Name</label>
+                                <label>Product Owner</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -107,13 +108,14 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                                     name="productOwnerName"
                                     value={formData.productOwnerName}
                                     onChange={handleChange}
+                                    required
                                 />
                             </td>
                         </tr>
                         
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Developer 1</label>
+                                <label>Developer Name 1 *</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -128,7 +130,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Developer 2</label>
+                                <label>Developer Name 2 *</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -142,7 +144,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Developer 3</label>
+                                <label>Developer Name 3 *</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -156,7 +158,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Developer 4</label>
+                                <label>Developer Name 4 *</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -170,7 +172,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Developer 5</label>
+                                <label>Developer Name 5 *</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -185,7 +187,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
-                                <label>Scrum Master Name</label>
+                                <label>Scrum Master</label>
                             </th>
                             <td className="form-table-field-input">
                                 <input
@@ -194,6 +196,7 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                                     name="scrumMasterName"
                                     value={formData.scrumMasterName}
                                     onChange={handleChange}
+                                    required
                                 />    
                             </td>
                         </tr>
@@ -239,8 +242,15 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                         </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title"></th>
-                            <td className="form-table-field-input">
-                                <button type="submit">{(newOrEdit === "new") ? "ADD" : "UPDATE" } PRODUCT</button>
+                            <td className="form-table-button-link">
+                                    <button type="submit">SAVE</button>
+                                    <Link className="cancel-link" to="/">CANCEL</Link>
+                            </td>
+                        </tr>
+                        <tr className="form-table-row">
+                            <th className="form-table-field-title"></th>
+                            <td className="form-table-notes">
+                                * Up to 5 developer names can be entered.  <br />At least 1 developer (Developer Name 1) needs to be entered.
                             </td>
                         </tr>
                     </tbody>

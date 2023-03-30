@@ -5,7 +5,7 @@ const initial = true
 
 const maxInitialProducts = 40
 
-const numInitialProducts = 3
+const numInitialProducts = 40
 
 const productNames = [
     "Product01", 
@@ -47,6 +47,7 @@ const productNames = [
     "Product37", 
     "Product38", 
     "Product39", 
+    "Product40", 
 ]
 
 const productOwnerNames = [
