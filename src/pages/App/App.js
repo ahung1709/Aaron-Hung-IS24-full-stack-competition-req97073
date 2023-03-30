@@ -29,7 +29,7 @@ function App() {
   }
 
   async function handleEditProduct(productData) {
-    const updatedProducts = await productServices.editProduct(productData.productId, productData)
+    const updatedProducts = await productServices.editProduct(productData)
     setProducts(updatedProducts)
     getAllProducts()
   }

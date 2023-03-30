@@ -8,7 +8,7 @@
  *         productId:
  *           type: string
  *           description: unique product ID
- *           example: lfun9l3fb5iz7clevx
+ *           example: Plfun9
  *         productName:
  *           type: string
  *           description: name of the product
@@ -41,19 +41,6 @@
  *       summary: Finds all products
  *       description: Finds all products.  No value needs to be provided
  *       operationId: getAllProducts
- *       parameters:
- *         - name: status
- *           in: query
- *           description: Status values that need to be considered for filter
- *           required: false
- *           explode: true
- *           schema:
- *             type: string
- *             default: available
- *             enum:
- *               - available
- *               - pending
- *               - sold
  *       responses:
  *         '200':
  *           description: successful operation
@@ -68,34 +55,27 @@
  *     post:
  *       tags:
  *         - product
- *       summary: Finds all products
- *       description: Finds all products.  No value needs to be provided
- *       operationId: getAllProducts
+ *       summary: Create new product
+ *       description: 
+ *         Create new product, and return all products after new product is created.  
+ *         Please note that the "productId" key-value pair in productData provided as parameter is not needed and will be ignored.
+ *         An unique productId will be automatically generated.
+ *       operationId: addProducts
  *       parameters:
- *         - name: status
+ *         - name: productData
  *           in: query
- *           description: Status values that need to be considered for filter
- *           required: false
- *           explode: true
+ *           description: New product object that needs to be added to list of products
+ *           required: true
+ *           explode: false
  *           schema:
- *             type: string
- *             default: available
- *             enum:
- *               - available
- *               - pending
- *               - sold
+ *             type: object
+ *             $ref: '#/components/schemas/product'
  *       requestBody:
- *         description: Create a new pet in the store
+ *         description: Create a new product in the list of products
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/product'
- *           application/xml:
- *             schema:
- *             $ref: '#/components/schemas/product'
- *           application/x-www-form-urlencoded:
- *             schema:
- *             $ref: '#/components/schemas/product'
  *         required: true
  *       responses:
  *         '200':
@@ -107,39 +87,33 @@
  *               items:
  *                 $ref: '#/components/schemas/product'          
  *         '400':
- *           description: Unable to get data
+ *           description: Unable to add new data
  *   /api/product/:productId:
  *     put:
  *       tags:
  *         - product
- *       summary: Finds all products
- *       description: Finds all products.  No value needs to be provided
- *       operationId: getAllProducts
+ *       summary: Update an existing product
+ *       description: 
+ *         Update a product with a specific product ID.  
+ *         To successfully update an existing product data, the product ID included in provided product data needs to be the same as product ID in an existing product.
+ *         To try this function out and receive a sucessful response, execute the function in the GET function above, copy one of the product ID in the generated product, paste the product ID into the value fo the key "productID" in the Example Value under Request Body below.
+ *         An error will be responded if the value for the key "productId" does not belong to an existing product
+ *       operationId: editProducts
  *       parameters:
- *         - name: status
+ *         - name: productData
  *           in: query
- *           description: Status values that need to be considered for filter
- *           required: false
+ *           description: Product object with new details that an existing product will be updated to
+ *           required: true
  *           explode: true
  *           schema:
- *             type: string
- *             default: available
- *             enum:
- *               - available
- *               - pending
- *               - sold
+ *             type: object
+ *             $ref: '#/components/schemas/product'
  *       requestBody:
- *         description: Create a new pet in the store
+ *         description: Update an existing product with provided product ID to provided product data
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/product'
- *           application/xml:
- *             schema:
- *             $ref: '#/components/schemas/product'
- *           application/x-www-form-urlencoded:
- *             schema:
- *             $ref: '#/components/schemas/product'
  *         required: true
  *       responses:
  *         '200':
@@ -151,7 +125,7 @@
  *               items:
  *                 $ref: '#/components/schemas/product'          
  *         '400':
- *           description: Unable to get data
+ *           description: Unable to update data or find existing product with product ID included in the provided product data
  */
 
 const express = require('express');

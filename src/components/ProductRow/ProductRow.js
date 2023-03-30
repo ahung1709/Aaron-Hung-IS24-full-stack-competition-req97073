@@ -4,7 +4,7 @@ import "./ProductRow.css";
 export default function ProductRow({ product }) {
 
     const developersEls = product.Developers.map(function(d) {
-        return <p>{d}</p>
+        return <div className="developer-container">{d}</div>
     })
 
     const editLink = "/product/" + product.productId

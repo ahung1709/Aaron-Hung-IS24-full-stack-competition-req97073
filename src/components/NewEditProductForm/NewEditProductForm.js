@@ -112,7 +112,14 @@ export default function NewEditProductForm({ handleAddProduct, handleEditProduct
                                 />
                             </td>
                         </tr>
-                        
+
+                        <tr className="form-table-row">
+                            <th className="form-table-field-title">
+                                <label>Developer Names</label>
+                            </th>
+                            <td className="form-table-field-input">
+                            </td>
+                        </tr>
                         <tr className="form-table-row">
                             <th className="form-table-field-title">
                                 <label>Developer Name 1 *</label>
