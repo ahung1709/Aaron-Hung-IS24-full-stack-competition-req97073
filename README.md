@@ -1,8 +1,8 @@
-# Aaron Hung - IS-24 Full Stack Developer Code Challenge req97073
+# Aaron Hung - Solution for Code Challenge for IS-24 Full Stack Developer Posting Req:97073
 
 ## This project
 
-* This project is my solution for the IS-24 Full Stack Developer Code Challenge req97073.
+* This project is my solution for the [Code Challenge for IS-24 Full Stack Developer Posting Req:97073](https://github.com/bcgov/citz-imb-full-stack-code-challenge-req97073).
 * Please see below for technologies used, and instructions to install and run this project.
 
 ## Technologies used
