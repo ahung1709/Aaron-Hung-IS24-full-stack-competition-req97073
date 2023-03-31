@@ -70,6 +70,7 @@ function updateProduct(req, res) {
 }
 
 // Find all products with a specific scrum master name
+// The search is not case-sensitive
 function findProductsByScrumMasterName(req, res) {
     try {
         const lowerScrumMasterNameNeeded = req.body.scrumMasterName.toLowerCase()
@@ -89,6 +90,7 @@ function findProductsByScrumMasterName(req, res) {
 }
 
 // Find all products with a specific developer name
+// The search is not case-sensitive
 function findProductsByDeveloperName(req, res) {
     try {
         const lowerDeveloperNameNeeded = req.body.developerName.toLowerCase()

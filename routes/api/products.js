@@ -126,13 +126,85 @@
  *                 $ref: '#/components/schemas/product'          
  *         '400':
  *           description: Unable to update data or find existing product with product ID included in the provided product data
+ *   /api/product/findByScrumMasterName:
+ *     post:
+ *       tags:
+ *         - product
+ *       summary: Find products with a specific Scrum Master Name
+ *       description: 
+ *         Find products with a specific Scrum Master Name
+ *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the scrum master names in the generated products, paste the scrum master name into the value of the key "scrumMasterName" in the Example Value under Request Body below.
+ *       operationId: findProductsByScrumMasterName
+ *       parameters:
+ *         - name: scrumMasterNameData
+ *           in: query
+ *           description: Scrum Master Name of products that need to be found
+ *           required: true
+ *           explode: true
+ *           schema:
+ *             type: object
+ *             example: { "scrumMasterName": "Aidan McGhie" }
+ *       requestBody:
+ *         description: Scrum Master Name of products that need to be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               example: { "scrumMasterName": "Aidan McGhie" }
+ *         required: true
+ *       responses:
+ *         '200':
+ *           description: successful operation
+ *           content:
+ *             application/json:
+ *               schema:
+ *               type: array of objects
+ *               items:
+ *                 $ref: '#/components/schemas/product'          
+ *         '400':
+ *           description: Error in finding products with specific scrum master name
+ *   /api/product/findByDeveloperName:
+ *     post:
+ *       tags:
+ *         - product
+ *       summary: Find products with a specific Developer Name
+ *       description: 
+ *         Find products with a specific Developer Name
+ *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the developer names in the generated products, paste the developer name into the value of the key "developerName" in the Example Value under Request Body below.
+ *       operationId: findProductsByDeveloperName
+ *       parameters:
+ *         - name: developerNameData
+ *           in: query
+ *           description: Developer Name of products that need to be found
+ *           required: true
+ *           explode: true
+ *           schema:
+ *             type: object
+ *             example: { "developerName": "Margaret McGowen" }
+ *       requestBody:
+ *         description: Developer Name of products that need to be found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               example: { "developerName": "Margaret McGowen" }
+ *         required: true
+ *       responses:
+ *         '200':
+ *           description: successful operation
+ *           content:
+ *             application/json:
+ *               schema:
+ *               type: array of objects
+ *               items:
+ *                 $ref: '#/components/schemas/product'          
+ *         '400':
+ *           description: Error in finding products with specific developer name
  */
 
 const express = require('express');
 const router = express.Router();
 const productsCtrl = require('../../controllers/products');
 
-console.log("inside router before routes")
+// console.log("inside router before routes")
 
 // GET /api/product
 router.get('/', productsCtrl.index);
@@ -143,7 +215,7 @@ router.post('/', productsCtrl.addProduct)
 // PUT /api/product/:productId
 router.put('/:productId', productsCtrl.updateProduct)
 
-console.log("inside router before findByScrumMasterName")
+// console.log("inside router before findByScrumMasterName")
 
 // POST /api/product/findByScrumMasterName
 router.post('/findByScrumMasterName', productsCtrl.findProductsByScrumMasterName)
