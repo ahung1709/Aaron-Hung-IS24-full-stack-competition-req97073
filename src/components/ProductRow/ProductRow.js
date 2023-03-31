@@ -4,8 +4,8 @@ import "./ProductRow.css";
 export default function ProductRow({ product }) {
 
     // Generate a list of developers
-    const developersEls = product.Developers.map(function(d) {
-        return <div className="developer-container">{d}</div>
+    const developersEls = product.Developers.map(function(d, index) {
+        return <div key={index} className="developer-container">{d}</div>
     })
 
     const editLink = "/product/" + product.productId

@@ -132,8 +132,6 @@ const express = require('express');
 const router = express.Router();
 const productsCtrl = require('../../controllers/products');
 
-console.log("inside router")
-
 // GET /api/product
 router.get('/', productsCtrl.index);
 

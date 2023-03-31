@@ -9,7 +9,6 @@ import EditProductPage from '../EditProductPage/EditProductPage';
 import './App.css';
 
 function App() {
-  console.log("Inside App")
 
   const [products, setProducts] = useState([])
 
@@ -39,9 +38,6 @@ function App() {
     if (updatedProducts) setProducts(updatedProducts)
     getAllProducts()
   }
-
-  console.log("products: ");
-  console.log(products)
 
   return (
     <div className="App">

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -21,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/product', require('./routes/api/products'))
 
+// Definition for Swagger documentation
 const options = {
     definition: {
       openapi: "3.0.0", 
@@ -42,14 +42,15 @@ const options = {
       ], 
     }, 
     apis: ["./routes/api/*.js"],
-  }
+}
   
-  const spacs = swaggerjsdoc(options)
-  app.use(
-    "/api/api-docs", 
-    swaggerui.serve, 
-    swaggerui.setup(spacs)
-  )
+// setup Swagger UI to serve Swagger documentation
+const spacs = swaggerjsdoc(options)
+app.use(
+"/api/api-docs", 
+swaggerui.serve, 
+swaggerui.setup(spacs)
+)
 
 // Configure to use port 3001 instead of 3000 during
 // development to avoid collision with React's dev server
@@ -66,4 +67,3 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-

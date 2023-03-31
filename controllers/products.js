@@ -10,7 +10,6 @@ module.exports = {
 // Return an array of all existing products as JSON
 // This function will also generate random sample products if it is the first time running after backend server starts
 async function index(req, res) {
-    console.log("inside index")  
     try {
         // Pre-populate random data on initial execution
         if (productsData.initial) {

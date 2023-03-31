@@ -4,8 +4,6 @@ import ProductsTable from '../../components/ProductsTable/ProductsTable'
 import './AllProductsPage.css';
 
 export default function AllProductsPage({products}) {
-    console.log("AllProductsPage/products:")
-    console.log(products)
 
     return (        
         <main className="AllProductPage">
