@@ -96,7 +96,7 @@
  *       description: 
  *         Update a product with a specific product ID.  
  *         To successfully update an existing product data, the product ID included in provided product data needs to be the same as product ID in an existing product.
- *         To try this function out and receive a sucessful response, execute the function in the GET function above, copy one of the product ID in the generated product, paste the product ID into the value fo the key "productID" in the Example Value under Request Body below.
+ *         To try this function out and receive a sucessful response, execute the function in the GET function above, copy one of the product ID in the generated product, and paste the product ID into the value fo the key "productID" in the Example Value under Request Body below.
  *         An error will be responded if the value for the key "productId" does not belong to an existing product
  *       operationId: editProducts
  *       parameters:
@@ -132,8 +132,8 @@
  *         - product
  *       summary: Find products with a specific Scrum Master Name
  *       description: 
- *         Find products with a specific Scrum Master Name
- *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the scrum master names in the generated products, paste the scrum master name into the value of the key "scrumMasterName" in the Example Value under Request Body below.
+ *         Find products with a specific Scrum Master Name.
+ *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the scrum master names in the generated products, and paste the scrum master name into the value of the key "scrumMasterName" in the Example Value under Request Body below.
  *       operationId: findProductsByScrumMasterName
  *       parameters:
  *         - name: scrumMasterNameData
@@ -168,8 +168,8 @@
  *         - product
  *       summary: Find products with a specific Developer Name
  *       description: 
- *         Find products with a specific Developer Name
- *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the developer names in the generated products, paste the developer name into the value of the key "developerName" in the Example Value under Request Body below.
+ *         Find products with a specific Developer Name.
+ *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the developer names in the generated products, and paste the developer name into the value of the key "developerName" in the Example Value under Request Body below.
  *       operationId: findProductsByDeveloperName
  *       parameters:
  *         - name: developerNameData
