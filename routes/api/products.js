@@ -132,6 +132,8 @@ const express = require('express');
 const router = express.Router();
 const productsCtrl = require('../../controllers/products');
 
+console.log("inside router before routes")
+
 // GET /api/product
 router.get('/', productsCtrl.index);
 
@@ -140,5 +142,13 @@ router.post('/', productsCtrl.addProduct)
 
 // PUT /api/product/:productId
 router.put('/:productId', productsCtrl.updateProduct)
+
+console.log("inside router before findByScrumMasterName")
+
+// POST /api/product/findByScrumMasterName
+router.post('/findByScrumMasterName', productsCtrl.findProductsByScrumMasterName)
+
+// POST /api/product/findByScrumMasterName
+router.post('/findByDeveloperName', productsCtrl.findProductsByDeveloperName)
 
 module.exports = router;

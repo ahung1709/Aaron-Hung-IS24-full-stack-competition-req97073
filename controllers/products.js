@@ -5,6 +5,8 @@ module.exports = {
     index, 
     addProduct, 
     updateProduct, 
+    findProductsByScrumMasterName, 
+    findProductsByDeveloperName, 
 }
 
 // Return an array of all existing products as JSON
@@ -22,7 +24,7 @@ async function index(req, res) {
     }
 }
 
-// add new product object into the array of existing products, and return the updated array of products as JSON
+// Add new product object into the array of existing products, and return the updated array of products as JSON
 function addProduct(req, res) {
     try {
         const id = generateUId()
@@ -50,8 +52,8 @@ function addProduct(req, res) {
     }
 }
 
-// update an existing product with new details from a product object with the same product ID, and return the updated array of products as JSON
-// if the product ID of the product object with new details cannot be found in the product IDs of existing products, an error will be responded
+// Update an existing product with new details from a product object with the same product ID, and return the updated array of products as JSON
+// If the product ID of the product object with new details cannot be found in the product IDs of existing products, an error will be responded
 function updateProduct(req, res) {
     try {
         let idxProductFound = productsData.allProducts.findIndex(p => p.productId === req.body.productId)
@@ -62,6 +64,46 @@ function updateProduct(req, res) {
         productsData.allProducts[idxProductFound].startDate = req.body.startDate
         productsData.allProducts[idxProductFound].methodology = req.body.methodology
         res.status(200).json(productsData.allProducts)
+    } catch {
+        res.status(400).json(err)
+    }
+}
+
+// Find all products with a specific scrum master name
+function findProductsByScrumMasterName(req, res) {
+    try {
+        const lowerScrumMasterNameNeeded = req.body.scrumMasterName.toLowerCase()
+        let productsFound = []
+        if (req.body.scrumMasterName) {
+            for (let i=0; i<productsData.allProducts.length; i++) {
+                if (productsData.allProducts[i].scrumMasterName.toLowerCase() === lowerScrumMasterNameNeeded)
+                    productsFound.push(productsData.allProducts[i])
+            }
+        } else {
+            productsFound = productsData.allProducts.slice()
+        }
+        res.status(200).json(productsFound)
+    } catch {
+        res.status(400).json(err)
+    }
+}
+
+// Find all products with a specific developer name
+function findProductsByDeveloperName(req, res) {
+    try {
+        const lowerDeveloperNameNeeded = req.body.developerName.toLowerCase()
+        let productsFound = []
+        if (req.body.developerName) {
+            for (let i=0; i<productsData.allProducts.length; i++) {
+                for (let j=0; j<productsData.allProducts[i].Developers.length; j++) {
+                    if (productsData.allProducts[i].Developers[j].toLowerCase() === lowerDeveloperNameNeeded)
+                        productsFound.push(productsData.allProducts[i])
+                }
+            }
+        } else {
+            productsFound = productsData.allProducts.slice()
+        }
+        res.status(200).json(productsFound)
     } catch {
         res.status(400).json(err)
     }
