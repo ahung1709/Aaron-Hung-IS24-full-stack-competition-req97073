@@ -6,6 +6,8 @@ module.exports = {
     index, 
     addProduct, 
     updateProduct, 
+    findProductsByScrumMasterName, 
+    findProductsByDeveloperName, 
 }
 
 // Return an array of all existing products as JSON
@@ -91,6 +93,48 @@ async function updateProduct(req, res) {
     // } catch {
     //     res.status(400).json(err)
     // }
+}
+
+// Find all products with a specific scrum master name
+// The search is not case-sensitive
+function findProductsByScrumMasterName(req, res) {
+    try {
+        const lowerScrumMasterNameNeeded = req.body.scrumMasterName.toLowerCase()
+        let productsFound = []
+        if (req.body.scrumMasterName) {
+            for (let i=0; i<productsData.allProducts.length; i++) {
+                if (productsData.allProducts[i].scrumMasterName.toLowerCase() === lowerScrumMasterNameNeeded)
+                    productsFound.push(productsData.allProducts[i])
+            }
+        } else {
+            productsFound = productsData.allProducts.slice()
+        }
+        res.status(200).json(productsFound)
+    } catch {
+        res.status(400).json(err)
+    }
+}
+
+// Find all products with a specific developer name
+// The search is not case-sensitive
+function findProductsByDeveloperName(req, res) {
+    try {
+        const lowerDeveloperNameNeeded = req.body.developerName.toLowerCase()
+        let productsFound = []
+        if (req.body.developerName) {
+            for (let i=0; i<productsData.allProducts.length; i++) {
+                for (let j=0; j<productsData.allProducts[i].Developers.length; j++) {
+                    if (productsData.allProducts[i].Developers[j].toLowerCase() === lowerDeveloperNameNeeded)
+                        productsFound.push(productsData.allProducts[i])
+                }
+            }
+        } else {
+            productsFound = productsData.allProducts.slice()
+        }
+        res.status(200).json(productsFound)
+    } catch {
+        res.status(400).json(err)
+    }
 }
 
 //-- Helper functions for generating random products and product details --
