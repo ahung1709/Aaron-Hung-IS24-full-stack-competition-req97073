@@ -77,8 +77,7 @@ async function updateProduct(req, res) {
         await productsService.update(req.body)
         res.status(204).send()
     } catch (err) {
-        console.error("error:")
-        console.error(err)
+        console.error("error:", err)
         res.status(500).json(err)
     }
     // try {
@@ -97,44 +96,62 @@ async function updateProduct(req, res) {
 
 // Find all products with a specific scrum master name
 // The search is not case-sensitive
-function findProductsByScrumMasterName(req, res) {
+async function findProductsByScrumMasterName(req, res) {
     try {
-        const lowerScrumMasterNameNeeded = req.body.scrumMasterName.toLowerCase()
-        let productsFound = []
-        if (req.body.scrumMasterName) {
-            for (let i=0; i<productsData.allProducts.length; i++) {
-                if (productsData.allProducts[i].scrumMasterName.toLowerCase() === lowerScrumMasterNameNeeded)
-                    productsFound.push(productsData.allProducts[i])
-            }
-        } else {
-            productsFound = productsData.allProducts.slice()
-        }
-        res.status(200).json(productsFound)
-    } catch {
-        res.status(400).json(err)
+        res.status(200).json(
+            await productsService.getByScrumMasterName(req.body.scrumMasterName)
+        )
+    } catch (err) {
+        console.error("error:", err)
+        res.status(500).json(err)
     }
+
+    // try {
+    //     const lowerScrumMasterNameNeeded = req.body.scrumMasterName.toLowerCase()
+    //     let productsFound = []
+    //     if (req.body.scrumMasterName) {
+    //         for (let i=0; i<productsData.allProducts.length; i++) {
+    //             if (productsData.allProducts[i].scrumMasterName.toLowerCase() === lowerScrumMasterNameNeeded)
+    //                 productsFound.push(productsData.allProducts[i])
+    //         }
+    //     } else {
+    //         productsFound = productsData.allProducts.slice()
+    //     }
+    //     res.status(200).json(productsFound)
+    // } catch {
+    //     res.status(400).json(err)
+    // }
 }
 
 // Find all products with a specific developer name
 // The search is not case-sensitive
-function findProductsByDeveloperName(req, res) {
+async function findProductsByDeveloperName(req, res) {
     try {
-        const lowerDeveloperNameNeeded = req.body.developerName.toLowerCase()
-        let productsFound = []
-        if (req.body.developerName) {
-            for (let i=0; i<productsData.allProducts.length; i++) {
-                for (let j=0; j<productsData.allProducts[i].Developers.length; j++) {
-                    if (productsData.allProducts[i].Developers[j].toLowerCase() === lowerDeveloperNameNeeded)
-                        productsFound.push(productsData.allProducts[i])
-                }
-            }
-        } else {
-            productsFound = productsData.allProducts.slice()
-        }
-        res.status(200).json(productsFound)
-    } catch {
-        res.status(400).json(err)
+        res.status(200).json(
+            await productsService.getByDeveloperName(req.body.developerName)
+        )
+    } catch (err) {
+        console.error("error:", err)
+        res.status(500).json(err)   
     }
+
+    // try {
+    //     const lowerDeveloperNameNeeded = req.body.developerName.toLowerCase()
+    //     let productsFound = []
+    //     if (req.body.developerName) {
+    //         for (let i=0; i<productsData.allProducts.length; i++) {
+    //             for (let j=0; j<productsData.allProducts[i].Developers.length; j++) {
+    //                 if (productsData.allProducts[i].Developers[j].toLowerCase() === lowerDeveloperNameNeeded)
+    //                     productsFound.push(productsData.allProducts[i])
+    //             }
+    //         }
+    //     } else {
+    //         productsFound = productsData.allProducts.slice()
+    //     }
+    //     res.status(200).json(productsFound)
+    // } catch {
+    //     res.status(400).json(err)
+    // }
 }
 
 //-- Helper functions for generating random products and product details --

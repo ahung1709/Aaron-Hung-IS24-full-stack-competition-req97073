@@ -4,7 +4,9 @@ module.exports = {
     getAll, 
     getById, 
     update, 
-    create
+    create, 
+    getByScrumMasterName, 
+    getByDeveloperName
 }
 
 let products = []
@@ -74,53 +76,63 @@ async function update(product) {
 }
 
 async function create(product) { 
-        const id = generateUId()
-        const productName = product.productName ? product.productName : ""
-        const productOwnerName = product.productOwnerName ? product.productOwnerName : ""
-        const developers = product.Developers ? product.Developers : []
-        const scrumMasterName = product.scrumMasterName ? product.scrumMasterName : ""
-        const startDate = product.startDate ? product.startDate : ""
-        const methodology = product.methodology ? product.methodology : ""
+    const id = generateUId()
+    const productName = product.productName ? product.productName : ""
+    const productOwnerName = product.productOwnerName ? product.productOwnerName : ""
+    const developers = product.Developers ? product.Developers : []
+    const scrumMasterName = product.scrumMasterName ? product.scrumMasterName : ""
+    const startDate = product.startDate ? product.startDate : ""
+    const methodology = product.methodology ? product.methodology : ""
 
-        const newProduct = createProduct(
-            id, 
-            productName, 
-            productOwnerName, 
-            developers, 
-            scrumMasterName, 
-            startDate, 
-            methodology
-        )
-        products.push(newProduct)
-        console.log("newProduct: products", products)
-        console.log("create: products", products)
+    const newProduct = createProduct(
+        id, 
+        productName, 
+        productOwnerName, 
+        developers, 
+        scrumMasterName, 
+        startDate, 
+        methodology
+    )
+    products.push(newProduct)
 
-        await saveProducts()
+    await saveProducts()
+}
 
-    // try {
-    //     const id = generateUId()
-    //     const productName = req.body.productName ? req.body.productName : ""
-    //     const productOwnerName = req.body.productOwnerName ? req.body.productOwnerName : ""
-    //     const developers = req.body.Developers ? req.body.Developers : []
-    //     const scrumMasterName = req.body.scrumMasterName ? req.body.scrumMasterName : ""
-    //     const startDate = req.body.startDate ? req.body.startDate : ""
-    //     const methodology = req.body.methodology ? req.body.methodology : ""
-            
-    //     const newProduct = createProduct(
-    //         id, 
-    //         productName, 
-    //         productOwnerName, 
-    //         developers, 
-    //         scrumMasterName, 
-    //         startDate, 
-    //         methodology
-    //     )
-    
-    //     productsData.allProducts.push(newProduct)
-    //     res.status(200).json(productsData.allProducts)
-    // } catch {
-    //     res.status(400).json(err)
-    // }
+async function getByScrumMasterName(scrumMaster) {
+    const lowerScrumMasterNameNeeded = scrumMaster.toLowerCase()
+    let productsFound
+    if (scrumMaster) {
+        productsFound = (await getAll()).filter((product) => product.scrumMasterName.toLowerCase() === lowerScrumMasterNameNeeded)
+    } else {
+        productsFound = products.slice()
+    }
+   
+    if (!productsFound) {
+        throw new Error ("Product was not found!");
+    } else {
+        return productsFound;
+    }
+}
+
+async function getByDeveloperName(developer) {
+    const lowerDeveloperNameNeeded = developer.toLowerCase()
+    console.log("lowerDeveloperNameNeeded", lowerDeveloperNameNeeded)
+    let productsFound
+    if (developer) {
+        productsFound = (await getAll()).filter((product) => {
+            return product.Developers.reduce((acc, developer) => {
+                return acc || developer.toLowerCase() === lowerDeveloperNameNeeded
+            }, false)
+        })
+    } else {
+        productsFound = products.slice()
+    }
+
+    if (!productsFound) {
+        throw new Error ("Product was not found!");
+    } else {
+        return productsFound;
+    }
 }
 
 
@@ -141,15 +153,7 @@ function generateUId() {
         pId = "P"+(Math.random().toString(36).substr(2,5));
     } while (products.reduce( (acc, product) => acc || (product.productId === pId), false)); 
     
-    console.log("pId:", pId)
     return pId
-
-    // let pId = ""
-    // // generate new product ID until it doesn't collide with previously generated product IDs
-    // do {
-    //     pId = "P"+(Math.random().toString(36).substr(2,5));
-    // } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === pId), false)); 
-    // return pId
 }
 
 function createProduct(productId = "", productName= "", ownerName= "", arrDevelopers = [], scrumMasterName = "", startDate = "", methodology = "") {
