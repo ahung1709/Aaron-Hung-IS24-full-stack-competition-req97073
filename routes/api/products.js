@@ -24,7 +24,7 @@
  *         scrumMasterName:
  *           type: string
  *           description: name of the scrum master
- *           example: Aidan McGhie 
+ *           example: Aidan McGhie
  *         startDate:
  *           type: string
  *           description: the date the project started
@@ -49,15 +49,15 @@
  *               schema:
  *               type: array of objects
  *               items:
- *                 $ref: '#/components/schemas/product'          
+ *                 $ref: '#/components/schemas/product'
  *         '400':
  *           description: Unable to get data
  *     post:
  *       tags:
  *         - product
  *       summary: Create new product
- *       description: 
- *         Create new product, and return all products after new product is created.  
+ *       description:
+ *         Create new product, and return all products after new product is created.
  *         Please note that the "productId" key-value pair in productData provided as parameter is not needed and will be ignored.
  *         An unique productId will be automatically generated.
  *       operationId: addProducts
@@ -85,7 +85,7 @@
  *               schema:
  *               type: array of objects
  *               items:
- *                 $ref: '#/components/schemas/product'          
+ *                 $ref: '#/components/schemas/product'
  *         '400':
  *           description: Unable to add new data
  *   /api/product/:productId:
@@ -93,8 +93,8 @@
  *       tags:
  *         - product
  *       summary: Update an existing product
- *       description: 
- *         Update a product with a specific product ID.  
+ *       description:
+ *         Update a product with a specific product ID.
  *         To successfully update an existing product data, the product ID included in provided product data needs to be the same as product ID in an existing product.
  *         To try this function out and receive a sucessful response, execute the function in the GET function above, copy one of the product ID in the generated product, paste the product ID into the value fo the key "productID" in the Example Value under Request Body below.
  *         An error will be responded if the value for the key "productId" does not belong to an existing product
@@ -123,22 +123,22 @@
  *               schema:
  *               type: array of objects
  *               items:
- *                 $ref: '#/components/schemas/product'          
+ *                 $ref: '#/components/schemas/product'
  *         '400':
  *           description: Unable to update data or find existing product with product ID included in the provided product data
  */
 
-const express = require('express');
-const router = express.Router();
-const productsCtrl = require('../../controllers/products');
+const express = require("express")
+const router = express.Router()
+const productsCtrl = require("../../controllers/products")
 
 // GET /api/product
-router.get('/', productsCtrl.index);
+router.get("/", productsCtrl.index)
 
 // POST /api/product
-router.post('/', productsCtrl.addProduct)
+router.post("/", productsCtrl.addProduct)
 
 // PUT /api/product/:productId
-router.put('/:productId', productsCtrl.updateProduct)
+router.put("/:productId", productsCtrl.updateProduct)
 
-module.exports = router;
+module.exports = router

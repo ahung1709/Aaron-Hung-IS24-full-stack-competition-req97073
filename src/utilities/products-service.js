@@ -1,4 +1,4 @@
-import * as productsAPI from './products-api';
+import * as productsAPI from "./products-api"
 
 // Get all existing products
 export async function getAllProducts() {
