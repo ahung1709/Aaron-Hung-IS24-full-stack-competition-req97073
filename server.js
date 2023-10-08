@@ -57,7 +57,7 @@ app.use(
 const expressPort = 3000
 
 app.listen(expressPort, function() {
-    console.log(`Express app running on port ${expressPort}`)
+    console.info(`Express app running on port ${expressPort}`)
 })
 
 app.use(express.static(path.join(__dirname, "build")))
