@@ -22,16 +22,6 @@ async function index(req, res) {
             error: 'Failed to show all products for unknown reasons'
         })
     }
-    // try {
-    //     // Pre-populate random data on initial execution
-    //     if (productsData.initial) {
-    //         generateProducts(productsData.numInitialProducts)
-    //         productsData.initial = false
-    //     }
-    //     res.status(200).json(productsData.allProducts)
-    // } catch(err) {
-    //     res.status(400).json(err)
-    // }
 }
 
 // add new product object into the array of existing products, and return the updated array of products as JSON
@@ -43,31 +33,6 @@ async function addProduct(req, res) {
         console.error("error:", err)
         res.status(500).json(err)
     }
-
-    // try {
-    //     const id = generateUId()
-    //     const productName = req.body.productName ? req.body.productName : ""
-    //     const productOwnerName = req.body.productOwnerName ? req.body.productOwnerName : ""
-    //     const developers = req.body.Developers ? req.body.Developers : []
-    //     const scrumMasterName = req.body.scrumMasterName ? req.body.scrumMasterName : ""
-    //     const startDate = req.body.startDate ? req.body.startDate : ""
-    //     const methodology = req.body.methodology ? req.body.methodology : ""
-            
-    //     const newProduct = createProduct(
-    //         id, 
-    //         productName, 
-    //         productOwnerName, 
-    //         developers, 
-    //         scrumMasterName, 
-    //         startDate, 
-    //         methodology
-    //     )
-    
-    //     productsData.allProducts.push(newProduct)
-    //     res.status(200).json(productsData.allProducts)
-    // } catch {
-    //     res.status(400).json(err)
-    // }
 }
 
 // update an existing product with new details from a product object with the same product ID, and return the updated array of products as JSON
@@ -80,18 +45,6 @@ async function updateProduct(req, res) {
         console.error("error:", err)
         res.status(500).json(err)
     }
-    // try {
-    //     let idxProductFound = productsData.allProducts.findIndex(p => p.productId === req.body.productId)
-    //     productsData.allProducts[idxProductFound].productName = req.body.productName
-    //     productsData.allProducts[idxProductFound].productOwnerName = req.body.productOwnerName
-    //     productsData.allProducts[idxProductFound].Developers = req.body.Developers
-    //     productsData.allProducts[idxProductFound].scrumMasterName = req.body.scrumMasterName
-    //     productsData.allProducts[idxProductFound].startDate = req.body.startDate
-    //     productsData.allProducts[idxProductFound].methodology = req.body.methodology
-    //     res.status(200).json(productsData.allProducts)
-    // } catch {
-    //     res.status(400).json(err)
-    // }
 }
 
 // Find all products with a specific scrum master name
@@ -105,22 +58,6 @@ async function findProductsByScrumMasterName(req, res) {
         console.error("error:", err)
         res.status(500).json(err)
     }
-
-    // try {
-    //     const lowerScrumMasterNameNeeded = req.body.scrumMasterName.toLowerCase()
-    //     let productsFound = []
-    //     if (req.body.scrumMasterName) {
-    //         for (let i=0; i<productsData.allProducts.length; i++) {
-    //             if (productsData.allProducts[i].scrumMasterName.toLowerCase() === lowerScrumMasterNameNeeded)
-    //                 productsFound.push(productsData.allProducts[i])
-    //         }
-    //     } else {
-    //         productsFound = productsData.allProducts.slice()
-    //     }
-    //     res.status(200).json(productsFound)
-    // } catch {
-    //     res.status(400).json(err)
-    // }
 }
 
 // Find all products with a specific developer name
@@ -134,24 +71,6 @@ async function findProductsByDeveloperName(req, res) {
         console.error("error:", err)
         res.status(500).json(err)   
     }
-
-    // try {
-    //     const lowerDeveloperNameNeeded = req.body.developerName.toLowerCase()
-    //     let productsFound = []
-    //     if (req.body.developerName) {
-    //         for (let i=0; i<productsData.allProducts.length; i++) {
-    //             for (let j=0; j<productsData.allProducts[i].Developers.length; j++) {
-    //                 if (productsData.allProducts[i].Developers[j].toLowerCase() === lowerDeveloperNameNeeded)
-    //                     productsFound.push(productsData.allProducts[i])
-    //             }
-    //         }
-    //     } else {
-    //         productsFound = productsData.allProducts.slice()
-    //     }
-    //     res.status(200).json(productsFound)
-    // } catch {
-    //     res.status(400).json(err)
-    // }
 }
 
 //-- Helper functions for generating random products and product details --
