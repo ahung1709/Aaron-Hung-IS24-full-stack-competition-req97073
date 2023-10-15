@@ -9,7 +9,13 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
     }
   
     const res = await fetch(url, options);
-    if (res.ok) return res.json();
+    if (res.ok) { 
+      if (res.status === 200) {
+        return res.json() 
+      } else {
+        return null;
+      }
+    }
     throw new Error('Bad Request');
   }
   
