@@ -45,7 +45,7 @@ function addProduct(req, res) {
     
         productsData.allProducts.push(newProduct)
         res.status(200).json(productsData.allProducts)
-    } catch {
+    } catch (err) {
         res.status(400).json(err)
     }
 }
@@ -62,7 +62,7 @@ function updateProduct(req, res) {
         productsData.allProducts[idxProductFound].startDate = req.body.startDate
         productsData.allProducts[idxProductFound].methodology = req.body.methodology
         res.status(200).json(productsData.allProducts)
-    } catch {
+    } catch (err) {
         res.status(400).json(err)
     }
 }
