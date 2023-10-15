@@ -1,4 +1,3 @@
-const { request } = require("express")
 const productsData = require("../data/products")
 
 module.exports = {
