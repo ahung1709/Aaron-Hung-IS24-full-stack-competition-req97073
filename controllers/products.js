@@ -1,10 +1,10 @@
-const { request } = require('express')
-const productsData = require('../data/products')
+const { request } = require("express")
+const productsData = require("../data/products")
 
 module.exports = {
-    index, 
-    addProduct, 
-    updateProduct, 
+    index,
+    addProduct,
+    updateProduct,
 }
 
 // Return an array of all existing products as JSON
@@ -32,17 +32,17 @@ function addProduct(req, res) {
         const scrumMasterName = req.body.scrumMasterName ? req.body.scrumMasterName : ""
         const startDate = req.body.startDate ? req.body.startDate : ""
         const methodology = req.body.methodology ? req.body.methodology : ""
-            
+
         const newProduct = createProduct(
-            id, 
-            productName, 
-            productOwnerName, 
-            developers, 
-            scrumMasterName, 
-            startDate, 
+            id,
+            productName,
+            productOwnerName,
+            developers,
+            scrumMasterName,
+            startDate,
             methodology
         )
-    
+
         productsData.allProducts.push(newProduct)
         res.status(200).json(productsData.allProducts)
     } catch (err) {
@@ -82,15 +82,15 @@ function generateProducts(num) {
         const methodology = generateMethodology(productsData.methodologies)
 
         const product = createProduct(
-            id, 
-            productName, 
-            productOwnerName, 
-            developers, 
-            scrumMasterName, 
-            startDate, 
+            id,
+            productName,
+            productOwnerName,
+            developers,
+            scrumMasterName,
+            startDate,
             methodology
         )
-        
+
         productsData.allProducts.push(product)
     }
 }
@@ -100,8 +100,8 @@ function generateUId() {
     let pId = ""
     // generate new product ID until it doesn't collide with previously generated product IDs
     do {
-        pId = "P"+(Math.random().toString(36).substr(2,5));
-    } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === pId), false)); 
+        pId = "P"+(Math.random().toString(36).substr(2,5))
+    } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === pId), false))
     return pId
 }
 
@@ -111,7 +111,7 @@ function generateProductName(arrProductNames) {
     // generate new product name until it is a product name not previously included in the list of products
     do {
         selectedProductName = arrProductNames[getRandomInt(0, arrProductNames.length)]
-    } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === selectedProductName), false)); // ensure automatic generated product name is unique
+    } while (productsData.allProducts.reduce( (acc, product) => acc || (product.productName === selectedProductName), false)) // ensure automatic generated product name is unique
     return selectedProductName
 }
 
@@ -130,8 +130,8 @@ function generateDevelopers(arrDevelopers, minDevelopers, maxDevelopers) {
         // generate new developer name until it is a developer name not previously selected
         do {
             selectedDeveloper = arrDevelopers[getRandomInt(0, arrDevelopers.length)]
-        } while (newArrDevelopers.includes(selectedDeveloper));
-        newArrDevelopers.push(selectedDeveloper);
+        } while (newArrDevelopers.includes(selectedDeveloper))
+        newArrDevelopers.push(selectedDeveloper)
     }
     return newArrDevelopers
 }
@@ -160,7 +160,7 @@ function generateMethodology(arrMethodologies) {
 
 // Generate random integer
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+    return Math.floor(Math.random() * (max - min) + min)
 }
 
 // Return a product object with the details of information provided as parameters
@@ -168,10 +168,10 @@ function createProduct(productId = "", productName= "", ownerName= "", arrDevelo
     return {
         "productId": productId,
         "productName": productName,
-        "productOwnerName": ownerName, 
-        "Developers": arrDevelopers, 
-        "scrumMasterName": scrumMasterName, 
-        "startDate": startDate, 
-        "methodology": methodology, 
-    };
+        "productOwnerName": ownerName,
+        "Developers": arrDevelopers,
+        "scrumMasterName": scrumMasterName,
+        "startDate": startDate,
+        "methodology": methodology,
+    }
 }
