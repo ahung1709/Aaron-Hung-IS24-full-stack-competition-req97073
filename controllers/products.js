@@ -1,68 +1,75 @@
-const productsData = require("../data/products")
+const { request } = require('express')
+const productsData = require('../data/products')
+const productsService = require('../services/product')
 
 module.exports = {
-    index,
-    addProduct,
-    updateProduct,
+    index, 
+    addProduct, 
+    updateProduct, 
+    findProductsByScrumMasterName, 
+    findProductsByDeveloperName, 
 }
 
 // Return an array of all existing products as JSON
 // This function will also generate random sample products if it is the first time running after backend server starts
 async function index(req, res) {
     try {
-        // Pre-populate random data on initial execution
-        if (productsData.initial) {
-            generateProducts(productsData.numInitialProducts)
-            productsData.initial = false
-        }
-        res.status(200).json(productsData.allProducts)
-    } catch(err) {
-        res.status(400).json(err)
+        res.status(200).json(await productsService.getAll())
+    } catch (err) {
+        // res.status(500).json(err)
+        console.error(err)
+        res.status(500).json({
+            error: 'Failed to show all products for unknown reasons'
+        })
     }
 }
 
 // add new product object into the array of existing products, and return the updated array of products as JSON
-function addProduct(req, res) {
+async function addProduct(req, res) {
     try {
-        const id = generateUId()
-        const productName = req.body.productName ? req.body.productName : ""
-        const productOwnerName = req.body.productOwnerName ? req.body.productOwnerName : ""
-        const developers = req.body.Developers ? req.body.Developers : []
-        const scrumMasterName = req.body.scrumMasterName ? req.body.scrumMasterName : ""
-        const startDate = req.body.startDate ? req.body.startDate : ""
-        const methodology = req.body.methodology ? req.body.methodology : ""
-
-        const newProduct = createProduct(
-            id,
-            productName,
-            productOwnerName,
-            developers,
-            scrumMasterName,
-            startDate,
-            methodology
-        )
-
-        productsData.allProducts.push(newProduct)
-        res.status(200).json(productsData.allProducts)
+        await productsService.create(req.body)
+        res.status(204).send()
     } catch (err) {
-        res.status(400).json(err)
+        console.error("error:", err)
+        res.status(500).json(err)
     }
 }
 
 // update an existing product with new details from a product object with the same product ID, and return the updated array of products as JSON
 // if the product ID of the product object with new details cannot be found in the product IDs of existing products, an error will be responded
-function updateProduct(req, res) {
+async function updateProduct(req, res) {
     try {
-        let idxProductFound = productsData.allProducts.findIndex(p => p.productId === req.body.productId)
-        productsData.allProducts[idxProductFound].productName = req.body.productName
-        productsData.allProducts[idxProductFound].productOwnerName = req.body.productOwnerName
-        productsData.allProducts[idxProductFound].Developers = req.body.Developers
-        productsData.allProducts[idxProductFound].scrumMasterName = req.body.scrumMasterName
-        productsData.allProducts[idxProductFound].startDate = req.body.startDate
-        productsData.allProducts[idxProductFound].methodology = req.body.methodology
-        res.status(200).json(productsData.allProducts)
+        await productsService.update(req.body)
+        res.status(204).send()
     } catch (err) {
-        res.status(400).json(err)
+        console.error("error:", err)
+        res.status(500).json(err)
+    }
+}
+
+// Find all products with a specific scrum master name
+// The search is not case-sensitive
+async function findProductsByScrumMasterName(req, res) {
+    try {
+        res.status(200).json(
+            await productsService.getByScrumMasterName(req.body.scrumMasterName)
+        )
+    } catch (err) {
+        console.error("error:", err)
+        res.status(500).json(err)
+    }
+}
+
+// Find all products with a specific developer name
+// The search is not case-sensitive
+async function findProductsByDeveloperName(req, res) {
+    try {
+        res.status(200).json(
+            await productsService.getByDeveloperName(req.body.developerName)
+        )
+    } catch (err) {
+        console.error("error:", err)
+        res.status(500).json(err)   
     }
 }
 

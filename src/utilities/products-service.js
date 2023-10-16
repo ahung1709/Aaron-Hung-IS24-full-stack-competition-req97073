@@ -15,3 +15,12 @@ export async function editProduct(productData) {
     return await productsAPI.editProducts(productData)
 }
 
+// Find products with specific scrum master name
+export async function findProductsByScrumMasterName(scrumMasterNameData) {
+    return await productsAPI.findProductsByScrumMasterName(scrumMasterNameData)
+}
+
+// Find products with specific developer name
+export async function findProductsByDeveloperName(developerNameData) {
+    return await productsAPI.findProductsByDeveloperName(developerNameData)
+}

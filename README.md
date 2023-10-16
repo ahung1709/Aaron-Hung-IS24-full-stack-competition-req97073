@@ -1,8 +1,8 @@
-# Aaron Hung - IS-24 Full Stack Developer Code Challenge req97073
+# Aaron Hung - Solution for Code Challenge for IS-24 Full Stack Developer Posting Req:97073
 
 ## This project
 
-* This project is my solution for the IS-24 Full Stack Developer Code Challenge req97073.
+* This project is my solution for the [Code Challenge for IS-24 Full Stack Developer Posting Req:97073](https://github.com/bcgov/citz-imb-full-stack-code-challenge-req97073).
 * Please see below for technologies used, and instructions to install and run this project.
 
 ## Technologies used
@@ -42,7 +42,7 @@
 
 * Run <span style="background-color:lightgrey">`npm run build`</span>
 
-### Add environment variable to set fron-end server to run on PORT 3001 to avoid colliding with back end server which will run on PORT 3000 (Optional - This step can be ignored by entering <span style="background-color:lightgrey">`y`</span> when you are asked a question after running <span style="background-color:lightgrey">`npm start`</span> - see next step)
+### Add environment variable to set front-end server to run on PORT 3001 to avoid colliding with back-end server which will run on PORT 3000 (Optional - This step can be ignored by entering <span style="background-color:lightgrey">`y`</span> when you are asked a question after running <span style="background-color:lightgrey">`npm start`</span> - see next step)
 
 * Open the code of project, and add .env file in the root directory.
 * Open the .env file, add <span style="background-color:lightgrey">`PORT=3001`</span>, and save the file.
