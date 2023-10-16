@@ -131,7 +131,7 @@
  *       tags:
  *         - product
  *       summary: Find products with a specific Scrum Master Name
- *       description: 
+ *       description:
  *         Find products with a specific Scrum Master Name.
  *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the scrum master names in the generated products, and paste the scrum master name into the value of the key "scrumMasterName" in the Example Value under Request Body below.
  *       operationId: findProductsByScrumMasterName
@@ -159,7 +159,7 @@
  *               schema:
  *               type: array of objects
  *               items:
- *                 $ref: '#/components/schemas/product'          
+ *                 $ref: '#/components/schemas/product'
  *         '400':
  *           description: Error in finding products with specific scrum master name
  *   /api/product/findByDeveloperName:
@@ -167,7 +167,7 @@
  *       tags:
  *         - product
  *       summary: Find products with a specific Developer Name
- *       description: 
+ *       description:
  *         Find products with a specific Developer Name.
  *         To try this function out and receive response other than an empty array, execute the function in the GET function above, copy one of the developer names in the generated products, and paste the developer name into the value of the key "developerName" in the Example Value under Request Body below.
  *       operationId: findProductsByDeveloperName
@@ -195,7 +195,7 @@
  *               schema:
  *               type: array of objects
  *               items:
- *                 $ref: '#/components/schemas/product'          
+ *                 $ref: '#/components/schemas/product'
  *         '400':
  *           description: Error in finding products with specific developer name
  */
@@ -214,10 +214,10 @@ router.post("/", productsCtrl.addProduct)
 router.put("/:productId", productsCtrl.updateProduct)
 
 // POST /api/product/findByScrumMasterName
-router.post('/findByScrumMasterName', productsCtrl.findProductsByScrumMasterName)
+router.post("/findByScrumMasterName", productsCtrl.findProductsByScrumMasterName)
 
 // POST /api/product/findByScrumMasterName
-router.post('/findByDeveloperName', productsCtrl.findProductsByDeveloperName)
+router.post("/findByDeveloperName", productsCtrl.findProductsByDeveloperName)
 
-module.exports = router;
+module.exports = router
 
