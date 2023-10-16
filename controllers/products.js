@@ -1,12 +1,12 @@
 const productsService = require("../services/product")
 
 module.exports = {
-    index, 
-    addProduct, 
-    updateProduct, 
+    index,
+    addProduct,
+    updateProduct,
     deleteProduct,
-    findProductsByScrumMasterName, 
-    findProductsByDeveloperName, 
+    findProductsByScrumMasterName,
+    findProductsByDeveloperName,
 }
 
 // Return an array of all existing products as JSON

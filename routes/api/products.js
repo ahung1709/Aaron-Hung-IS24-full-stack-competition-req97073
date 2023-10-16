@@ -214,7 +214,7 @@ router.post("/", productsCtrl.addProduct)
 router.put("/:productId", productsCtrl.updateProduct)
 
 // DELETE /api/product/:productId
-router.delete('/:productId', productsCtrl.deleteProduct)
+router.delete("/:productId", productsCtrl.deleteProduct)
 
 // POST /api/product/findByScrumMasterName
 router.post("/findByScrumMasterName", productsCtrl.findProductsByScrumMasterName)

@@ -1,12 +1,12 @@
 const fs = require("node:fs/promises")
 
 module.exports = {
-    getAll, 
-    getById, 
-    update, 
-    create, 
+    getAll,
+    getById,
+    update,
+    create,
     deleteProduct,
-    getByScrumMasterName, 
+    getByScrumMasterName,
     getByDeveloperName
 }
 
@@ -63,16 +63,16 @@ async function getById(id) {
     }
 }
 
-async function getIndexById(id) { 
+async function getIndexById(id) {
     const itemIndexFound = (await getAll()).findIndex((product) => product.productId === id)
     if (itemIndexFound === -1) {
-        throw new Error ("Product index was not found!");
+        throw new Error ("Product index was not found!")
     } else {
-        return itemIndexFound;
+        return itemIndexFound
     }
 }
 
-async function update(product) { 
+async function update(product) {
     const idxProductFound = await getById(product.productId)
     idxProductFound.productName = product.productName
     idxProductFound.productOwnerName = product.productOwnerName
