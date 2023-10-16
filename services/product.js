@@ -5,6 +5,7 @@ module.exports = {
     getById, 
     update, 
     create, 
+    deleteProduct,
     getByScrumMasterName, 
     getByDeveloperName
 }
@@ -62,6 +63,15 @@ async function getById(id) {
     }
 }
 
+async function getIndexById(id) { 
+    const itemIndexFound = (await getAll()).findIndex((product) => product.productId === id)
+    if (itemIndexFound === -1) {
+        throw new Error ("Product index was not found!");
+    } else {
+        return itemIndexFound;
+    }
+}
+
 async function update(product) { 
     const idxProductFound = await getById(product.productId)
     idxProductFound.productName = product.productName
@@ -84,6 +94,12 @@ async function create(product) {
     
         await saveProducts()        
     }
+}
+
+async function deleteProduct(id) {
+    const idxProductFound = await getIndexById(id)
+    products.splice(idxProductFound, 1)
+    await saveProducts()
 }
 
 async function getByScrumMasterName(scrumMaster) {
