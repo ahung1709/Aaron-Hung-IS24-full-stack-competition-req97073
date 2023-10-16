@@ -1,6 +1,6 @@
 import sendRequest from "./send-request"
 
-const BASE_URL = '/api/product'
+const BASE_URL = "/api/product"
 
 // Get all existing products
 export function getAllProducts() {

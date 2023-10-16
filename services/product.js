@@ -1,20 +1,20 @@
-const fs = require('node:fs/promises')
+const fs = require("node:fs/promises")
 
 module.exports = {
-    getAll, 
-    getById, 
-    update, 
-    create, 
-    getByScrumMasterName, 
+    getAll,
+    getById,
+    update,
+    create,
+    getByScrumMasterName,
     getByDeveloperName
 }
 
 let products = []
 
-async function getAll() { 
+async function getAll() {
     // generateProduct
     if (products.length === 0) {
-        await loadProducts();
+        await loadProducts()
 
         // products = [
         //     {
@@ -50,19 +50,19 @@ async function getAll() {
     } else {
         // await loadProducts();
     }
-    return products 
+    return products
 }
 
-async function getById(id) { 
+async function getById(id) {
     const itemFound = (await getAll()).find((product) => product.productId === id)
     if (!itemFound) {
-        throw new Error ("Product was not found!");
+        throw new Error ("Product was not found!")
     } else {
-        return itemFound;
+        return itemFound
     }
 }
 
-async function update(product) { 
+async function update(product) {
     const idxProductFound = await getById(product.productId)
     idxProductFound.productName = product.productName
     idxProductFound.productOwnerName = product.productOwnerName
@@ -70,19 +70,19 @@ async function update(product) {
     idxProductFound.scrumMasterName = product.scrumMasterName
     idxProductFound.startDate = product.startDate
     idxProductFound.methodology = product.methodology
-    
+
     await saveProducts()
 }
 
-async function create(product) { 
+async function create(product) {
     const p = {...product}
     p.productId = generateUId()
 
     if (validateProduct(p)) {
         p.Developers = p.Developers.filter(n => n)
         products.push(p)
-    
-        await saveProducts()        
+
+        await saveProducts()
     }
 }
 
@@ -94,11 +94,11 @@ async function getByScrumMasterName(scrumMaster) {
     } else {
         productsFound = products.slice()
     }
-   
+
     if (!productsFound) {
-        throw new Error ("Product was not found!");
+        throw new Error ("Product was not found!")
     } else {
-        return productsFound;
+        return productsFound
     }
 }
 
@@ -116,9 +116,9 @@ async function getByDeveloperName(developer) {
     }
 
     if (!productsFound) {
-        throw new Error ("Product was not found!");
+        throw new Error ("Product was not found!")
     } else {
-        return productsFound;
+        return productsFound
     }
 }
 
@@ -137,28 +137,28 @@ function generateUId() {
     let pId = ""
     // generate new product ID until it doesn't collide with previously generated product IDs
     do {
-        pId = "P"+(Math.random().toString(36).substr(2,5));
-    } while (products.find((product) => product.productId === pId)); 
-    
+        pId = "P"+(Math.random().toString(36).substr(2,5))
+    } while (products.find((product) => product.productId === pId))
+
     return pId
 }
 
-function validateProduct(product) { 
+function validateProduct(product) {
     if (!product.productId) {
-        throw new Error ("Product ID was missing!");
+        throw new Error ("Product ID was missing!")
     } else if (!product.productName) {
-        throw new Error ("Product name was missing!");
+        throw new Error ("Product name was missing!")
     } else if (!product.productOwnerName) {
-        throw new Error ("Owner name was missing!");
+        throw new Error ("Owner name was missing!")
     } else if (!Array.isArray(product.Developers) || !product.Developers.filter(n => n).length) {
-        throw new Error ("Developers is not an array, or is an empty array!!");
+        throw new Error ("Developers is not an array, or is an empty array!!")
     } else if (!product.scrumMasterName) {
-        throw new Error ("Scrum master name was missing!");
+        throw new Error ("Scrum master name was missing!")
     } else if (!product.startDate) {
-        throw new Error ("Start date was missing!");
+        throw new Error ("Start date was missing!")
     } else if (!product.methodology) {
-        throw new Error ("Methodology was missing!");
+        throw new Error ("Methodology was missing!")
     } else {
-        return true;
+        return true
     }
 }
