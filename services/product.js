@@ -75,41 +75,15 @@ async function update(product) {
 }
 
 async function create(product) { 
-    if (!product.productName) {
-        throw new Error ("Product name was missing!");
-    } else if (!product.productOwnerName) {
-        throw new Error ("Owner name was missing!");
-    } else if (!Array.isArray(product.Developers) || !product.Developers.filter(n => n).length) {
-        throw new Error ("Developers is not an array, is an empty array!!");
-    } else if (!product.scrumMasterName) {
-        throw new Error ("Scrum master name was missing!");
-    } else if (!product.startDate) {
-        throw new Error ("Start date was missing!");
-    } else if (!product.methodology) {
-        throw new Error ("Methodology was missing!");
-    } else {
-        const productId = generateUId()
-        const productName = product.productName
-        const productOwnerName = product.productOwnerName
-        const developers = product.Developers.filter(n => n)
-        const scrumMasterName = product.scrumMasterName
-        const startDate = product.startDate
-        const methodology = product.methodology
-    
-        const newProduct = createProduct({
-            productId, 
-            productName, 
-            productOwnerName, 
-            developers, 
-            scrumMasterName, 
-            startDate, 
-            methodology
-        })
-        products.push(newProduct)
-    
-        await saveProducts()
-    }
+    const p = {...product}
+    p.productId = generateUId()
 
+    if (validateProduct(p)) {
+        p.Developers = p.Developers.filter(n => n)
+        products.push(p)
+    
+        await saveProducts()        
+    }
 }
 
 async function getByScrumMasterName(scrumMaster) {
@@ -169,43 +143,22 @@ function generateUId() {
     return pId
 }
 
-// function createProduct(productId = "", productName= "", ownerName= "", arrDevelopers = [], scrumMasterName = "", startDate = "", methodology = "") {
-function createProduct(product) {
-    const {
-        productId, 
-        productName, 
-        productOwnerName, 
-        developers, 
-        scrumMasterName, 
-        startDate, 
-        methodology
-    } = product
-
-    if (!productId) {
+function validateProduct(product) { 
+    if (!product.productId) {
         throw new Error ("Product ID was missing!");
-    } else if (!productName) {
+    } else if (!product.productName) {
         throw new Error ("Product name was missing!");
-    } else if (!productOwnerName) {
+    } else if (!product.productOwnerName) {
         throw new Error ("Owner name was missing!");
-    } else if (!Array.isArray(developers) || !developers.filter(n => n).length) {
-        throw new Error ("Developers is not an array, is an empty array!!");
-    } else if (!scrumMasterName) {
+    } else if (!Array.isArray(product.Developers) || !product.Developers.filter(n => n).length) {
+        throw new Error ("Developers is not an array, or is an empty array!!");
+    } else if (!product.scrumMasterName) {
         throw new Error ("Scrum master name was missing!");
-    } else if (!startDate) {
+    } else if (!product.startDate) {
         throw new Error ("Start date was missing!");
-    } else if (!methodology) {
+    } else if (!product.methodology) {
         throw new Error ("Methodology was missing!");
     } else {
-        return {           
-            "productId": productId,
-            "productName": productName,
-            "productOwnerName": productOwnerName, 
-            "Developers": developers, 
-            "scrumMasterName": scrumMasterName, 
-            "startDate": startDate, 
-            "methodology": methodology, 
-        };
+        return true;
     }
 }
-
-
