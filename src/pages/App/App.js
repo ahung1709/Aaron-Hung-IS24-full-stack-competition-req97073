@@ -37,6 +37,13 @@ function App() {
     getAllProducts()
   }
 
+  // Delete an existing product with a specific product ID, and get updated list of existing products
+  async function handleDeleteProduct(productId) {
+    await productServices.deleteProduct(productId)
+    // Set products to the updated list of all products only if API is present or healthy
+    getAllProducts()
+  }
+
   async function handleFindProductsByScrumMasterName(scrumMasterNameData) {
     const matchedProducts = await productServices.findProductsByScrumMasterName(scrumMasterNameData)
     // Set products to the matched list of products only if API is present or healthy
@@ -53,9 +60,29 @@ function App() {
     <div className="App">
       <>
         <Routes>
-          <Route path="/" element={<AllProductsPage products={products} handleFindProductsByScrumMasterName={handleFindProductsByScrumMasterName} handleFindProductsByDeveloperName={handleFindProductsByDeveloperName} getAllProducts={getAllProducts} />} />
-          <Route path="/product/new" element={<NewProductPage handleAddProduct={handleAddProduct} />} />
-          <Route path="/product/:productId" element={<EditProductPage handleEditProduct={handleEditProduct} products={products} />} />
+          <Route 
+            path="/" 
+            element={
+              <AllProductsPage 
+                products={products} 
+                handleFindProductsByScrumMasterName={handleFindProductsByScrumMasterName} 
+                handleFindProductsByDeveloperName={handleFindProductsByDeveloperName} 
+                getAllProducts={getAllProducts} 
+                handleDeleteProduct={handleDeleteProduct} />
+              } />
+          <Route 
+            path="/product/new" 
+            element={
+              <NewProductPage 
+                handleAddProduct={handleAddProduct} />
+              } />
+          <Route 
+            path="/product/:productId" 
+            element={
+              <EditProductPage 
+                handleEditProduct={handleEditProduct} 
+                products={products} />
+              } />
         </Routes>
       </>
     </div>

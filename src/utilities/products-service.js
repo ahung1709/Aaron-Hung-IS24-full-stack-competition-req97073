@@ -15,6 +15,11 @@ export async function editProduct(productData) {
     return await productsAPI.editProducts(productData)
 }
 
+// Update an existing product with new details
+export async function deleteProduct(productId) {
+    return await productsAPI.deleteProducts(productId)
+}
+
 // Find products with specific scrum master name
 export async function findProductsByScrumMasterName(scrumMasterNameData) {
     return await productsAPI.findProductsByScrumMasterName(scrumMasterNameData)
