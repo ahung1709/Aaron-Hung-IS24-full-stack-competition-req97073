@@ -13,6 +13,39 @@ module.exports = {
 let products = []
 
 async function getAll() {
+    if (!(await existsJSONFile())) {
+        products = [
+            {
+                "productId": "Prplw8",
+                "productName": "Product10",
+                "productOwnerName": "Anthony Shanthan",
+                "Developers": [
+                    "Arthur Riches",
+                    "Luna Kalay",
+                    "Michael Grams"
+                ],
+                "scrumMasterName": "Aidan McGhie",
+                "startDate": "2022/10/01",
+                "methodology": "Agile"
+            },
+            {
+                "productId": "Prmxic",
+                "productName": "Product26",
+                "productOwnerName": "Anthony Shanthan",
+                "Developers": [
+                    "Phoenix Gutierrez",
+                    "James Andreas",
+                    "Adam Salyer"
+                ],
+                "scrumMasterName": "Aidan McGhie",
+                "startDate": "2022/11/30",
+                "methodology": "Agile"
+            },
+        ];
+
+        await saveProducts()
+    }
+
     // generateProduct
     if (products.length === 0) {
         await loadProducts()
@@ -145,6 +178,20 @@ async function saveProducts() {
 
 async function loadProducts() {
     products = JSON.parse(await fs.readFile("data/products.json", "utf-8"))
+}
+
+async function existsJSONFile() {
+    let fileExists;
+    await fs.access("data/products.json", fs.constants.F_OK)
+        .then(() => {
+            console.log('File exists.')
+            fileExists = true
+        })
+        .catch((err) => {
+            console.error('File does not exists.', err)
+            fileExists = false
+        })
+    return fileExists
 }
 
 //-- Helper functions for generating product details --
