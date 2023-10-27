@@ -1,4 +1,5 @@
 const fs = require("node:fs/promises")
+const productsData = require("../data/productsData")
 
 module.exports = {
     getAll,
@@ -14,36 +15,8 @@ let products = []
 
 async function getAll() {
     if (!(await existsJSONFile())) {
-        products = [
-            {
-                "productId": "Prplw8",
-                "productName": "Product10",
-                "productOwnerName": "Anthony Shanthan",
-                "Developers": [
-                    "Arthur Riches",
-                    "Luna Kalay",
-                    "Michael Grams"
-                ],
-                "scrumMasterName": "Aidan McGhie",
-                "startDate": "2022/10/01",
-                "methodology": "Agile"
-            },
-            {
-                "productId": "Prmxic",
-                "productName": "Product26",
-                "productOwnerName": "Anthony Shanthan",
-                "Developers": [
-                    "Phoenix Gutierrez",
-                    "James Andreas",
-                    "Adam Salyer"
-                ],
-                "scrumMasterName": "Aidan McGhie",
-                "startDate": "2022/11/30",
-                "methodology": "Agile"
-            },
-        ]
-
-        await saveProducts()
+        products = [] // clear products to empty array
+        await generateProducts(5) // generate random products
     }
 
     // generateProduct
@@ -118,6 +91,7 @@ async function update(product) {
 }
 
 async function create(product) {
+    await getAll()
     const p = {...product}
     p.productId = generateUId()
 
@@ -196,6 +170,35 @@ async function existsJSONFile() {
 
 //-- Helper functions for generating product details --
 
+// Generate and add random products
+async function generateProducts(num) {
+    let maxlength = productsData.maxInitialProducts
+    for (let i=0; i<Math.min(num, maxlength); i++) {
+        const productId = generateUId()
+        const productName = generateProductName(productsData.productNames)
+        const productOwnerName = generateProductOwner(productsData.productOwnerNames)
+        const Developers = generateDevelopers(productsData.developers, 1, 5)
+        const scrumMasterName = generateScrumMaster(productsData.scrumMasterNames)
+        const startDate = generateDate(new Date(2023, 3, 31), -365)
+        const methodology = generateMethodology(productsData.methodologies)
+
+        const p = {
+            productId,
+            productName,
+            productOwnerName,
+            Developers,
+            scrumMasterName,
+            startDate,
+            methodology
+        }
+
+        if (validateProduct(p)) {
+            products.push(p)
+            await saveProducts()
+        }
+    }
+}
+
 function generateUId() {
     let pId = ""
     // generate new product ID until it doesn't collide with previously generated product IDs
@@ -204,6 +207,64 @@ function generateUId() {
     } while (products.find((product) => product.productId === pId))
 
     return pId
+}
+
+// Generate random product name that is not previously included in the list of products
+function generateProductName(arrProductNames) {
+    let selectedProductName = ""
+    // generate new product name until it is a product name not previously included in the list of products
+    do {
+        selectedProductName = arrProductNames[getRandomInt(0, arrProductNames.length)]
+    } while (products.find((product) => product.productName === selectedProductName)) // ensure automatic generated product name is unique
+    return selectedProductName
+}
+
+// Generate random product owner from an array of product owners
+function generateProductOwner(arrProductOwner) {
+    return arrProductOwner[getRandomInt(0, arrProductOwner.length)]
+}
+
+// Generate array of a random number of random developers from an array of developers.
+// The random number of random developers is determined by parameters "minDevelopers" and "maxDevelopers"
+function generateDevelopers(arrDevelopers, minDevelopers, maxDevelopers) {
+    const numDevelopers = getRandomInt(minDevelopers, maxDevelopers)
+    let newArrDevelopers = []
+    let selectedDeveloper = ""
+    for (let j=0; j<numDevelopers; j++) {
+        // generate new developer name until it is a developer name not previously selected
+        do {
+            selectedDeveloper = arrDevelopers[getRandomInt(0, arrDevelopers.length)]
+        } while (newArrDevelopers.includes(selectedDeveloper))
+        newArrDevelopers.push(selectedDeveloper)
+    }
+    return newArrDevelopers
+}
+
+// Generate random scrum master from an array of scrum masters
+function generateScrumMaster(arrScrumMasters) {
+    return arrScrumMasters[getRandomInt(0, arrScrumMasters.length)]
+}
+
+// Generate random date between "start" date provided and the date that is "days" days from the "start" date
+function generateDate(start, days) {
+    const date = new Date(start.getTime() + (Math.random()*days*24*60*60*1000))
+    const year = date.getFullYear().toString()
+    let month = (date.getMonth() + 1).toString()
+    month.length === 1 ? month = "0" + month : month
+    let day = (date.getDate()).toString()
+    day.length === 1 ? day = "0" + day : day
+    const strDate = year + "/" + month + "/" + day
+    return strDate
+}
+
+// Generate random methodology from an array of methodologies
+function generateMethodology(arrMethodologies) {
+    return arrMethodologies[getRandomInt(0, arrMethodologies.length)]
+}
+
+// Generate random integer
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
 }
 
 function validateProduct(product) {
