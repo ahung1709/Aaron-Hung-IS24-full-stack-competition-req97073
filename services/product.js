@@ -41,7 +41,7 @@ async function getAll() {
                 "startDate": "2022/11/30",
                 "methodology": "Agile"
             },
-        ];
+        ]
 
         await saveProducts()
     }
@@ -181,14 +181,14 @@ async function loadProducts() {
 }
 
 async function existsJSONFile() {
-    let fileExists;
+    let fileExists
     await fs.access("data/products.json", fs.constants.F_OK)
         .then(() => {
-            console.log('File exists.')
+            console.info("File exists.")
             fileExists = true
         })
         .catch((err) => {
-            console.error('File does not exists.', err)
+            console.error("File does not exists.", err)
             fileExists = false
         })
     return fileExists
