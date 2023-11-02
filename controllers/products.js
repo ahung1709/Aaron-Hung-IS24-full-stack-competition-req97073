@@ -4,6 +4,7 @@ module.exports = {
     index,
     addProduct,
     updateProduct,
+    deleteProduct,
     findProductsByScrumMasterName,
     findProductsByDeveloperName,
 }
@@ -38,6 +39,18 @@ async function addProduct(req, res) {
 async function updateProduct(req, res) {
     try {
         await productsService.update(req.body)
+        res.status(204).send()
+    } catch (err) {
+        console.error("error:", err)
+        res.status(500).json(err)
+    }
+}
+
+// delete an existing product with product ID
+// if the product ID of the product object cannot be found, an error will be responded
+async function deleteProduct(req, res) {
+    try {
+        await productsService.deleteProduct(req.params.productId)
         res.status(204).send()
     } catch (err) {
         console.error("error:", err)

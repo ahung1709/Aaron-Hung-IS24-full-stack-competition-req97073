@@ -5,7 +5,13 @@ import SearchProductsByDeveloperNameForm from '../../components/SearchProductsBy
 
 import './AllProductsPage.css';
 
-export default function AllProductsPage({products, handleFindProductsByScrumMasterName, handleFindProductsByDeveloperName, getAllProducts}) {
+export default function AllProductsPage({
+    products, 
+    handleFindProductsByScrumMasterName, 
+    handleFindProductsByDeveloperName, 
+    getAllProducts, 
+    handleDeleteProduct
+}) {
     return (
         <main className="AllProductPage">
             <div className="product-list-container">
@@ -25,7 +31,10 @@ export default function AllProductsPage({products, handleFindProductsByScrumMast
                     <span>Total number of products: {products.length}</span>
                 </div>
                 <div className="table-container">
-                    <ProductsTable products={products} />
+                    <ProductsTable 
+                        products={products} 
+                        handleDeleteProduct={handleDeleteProduct} 
+                    />
                 </div>
             </div>
         </main>

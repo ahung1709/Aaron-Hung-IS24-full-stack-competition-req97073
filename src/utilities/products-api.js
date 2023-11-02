@@ -17,6 +17,11 @@ export function editProducts(productData) {
     return sendRequest(`${BASE_URL}/${productData.productId}`, "PUT", productData)
 }
 
+// Delete an existing product with new details
+export function deleteProducts(productId) {
+    return sendRequest(`${BASE_URL}/${productId}`, "DELETE")
+}
+
 // Find products with specific scrum master name
 export function findProductsByScrumMasterName(scrumMasterNameData) {
     return sendRequest(`${BASE_URL}/findByScrumMasterName`, "POST", scrumMasterNameData)

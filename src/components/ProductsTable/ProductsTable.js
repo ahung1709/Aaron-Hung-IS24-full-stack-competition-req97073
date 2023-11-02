@@ -1,10 +1,16 @@
 import ProductRow from '../ProductRow/ProductRow'
 import "./ProductsTable.css";
 
-export default function ProductsTable({ products }) {
+export default function ProductsTable({ products, handleDeleteProduct }) {
 
     const productsEls = products.map(function(p) {
-        return <ProductRow key={p.productId} product={p} />
+        return (
+            <ProductRow 
+                key={p.productId} 
+                product={p} 
+                handleDeleteProduct={handleDeleteProduct} 
+            />
+        )
     })
 
     return (
@@ -18,6 +24,7 @@ export default function ProductsTable({ products }) {
                     <th>Scrum Master</th>
                     <th>Start Date</th>
                     <th>Methodology</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>

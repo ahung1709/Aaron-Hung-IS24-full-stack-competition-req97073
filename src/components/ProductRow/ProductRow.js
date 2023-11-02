@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import "./ProductRow.css";
 
-export default function ProductRow({ product }) {
+export default function ProductRow({ product, handleDeleteProduct }) {
 
     // Generate a list of developers
     const developersEls = product.Developers.map(function(d, index) {
@@ -21,6 +21,14 @@ export default function ProductRow({ product }) {
             <td>{product.methodology}</td>
             <td>
                 <Link className="new-product-link" to={editLink} >Edit</Link>
+            </td>
+            <td>
+                <Link 
+                    className="new-product-link" 
+                    onClick={() => handleDeleteProduct(product.productId)}
+                >
+                    Delete
+                </Link>
             </td>
         </tr>
     );
