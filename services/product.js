@@ -156,15 +156,15 @@ async function loadProducts() {
 
 async function existsJSONFile() {
     let fileExists
-    await fs.access("data/products.json", fs.constants.F_OK)
-        .then(() => {
-            console.info("File exists.")
-            fileExists = true
-        })
-        .catch((err) => {
-            console.error("File does not exists.", err)
-            fileExists = false
-        })
+
+    try {
+        await fs.access("data/products.json", fs.constants.F_OK)
+        console.info("File exists.")
+        fileExists = true
+    } catch (err) {
+        console.error("File does not exists.", err)
+        fileExists = false
+    }
     return fileExists
 }
 
@@ -172,7 +172,7 @@ async function existsJSONFile() {
 
 // Generate and add random products
 async function generateProducts(num) {
-    let maxlength = productsData.maxInitialProducts
+    const maxlength = productsData.maxInitialProducts
     for (let i=0; i<Math.min(num, maxlength); i++) {
         const productId = generateUId()
         const productName = generateProductName(productsData.productNames)
@@ -194,9 +194,9 @@ async function generateProducts(num) {
 
         if (validateProduct(p)) {
             products.push(p)
-            await saveProducts()
         }
     }
+    await saveProducts()
 }
 
 function generateUId() {
